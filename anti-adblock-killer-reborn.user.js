@@ -12,7 +12,7 @@
 // @grant        GM_registerMenuCommand
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
-// @resource     aiModelData https://cdn.example.com/ai-model-data.json
+// @resource     aiModelData https://raw.githubusercontent.com/willbelove1/anti-adblock-killer-reborn-2025/refs/heads/main/ai-model-data.json
 // @run-at       document-start
 // @connect      *
 // ==/UserScript==
