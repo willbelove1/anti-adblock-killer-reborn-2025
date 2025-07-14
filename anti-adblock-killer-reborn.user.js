@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Anti-Adblock Killer | Reborn AI Edition
-// @namespace    https://github.com/reek/anti-adblock-killer
+// @namespace    https://lucaszone.vn
 // @version      2025.4
 // @description  Advanced anti-adblock bypass system with AI-powered detection and countermeasures
 // @author       Johnny Inc.
