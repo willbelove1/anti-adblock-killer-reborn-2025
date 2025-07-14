@@ -1,0 +1,224 @@
+{
+  "metadata": {
+    "version": "2025.4",
+    "created": "2025-01-14T00:00:00Z",
+    "updated": "2025-01-14T00:00:00Z",
+    "description": "AI model data for Anti-Adblock Killer",
+    "author": "AAK Team",
+    "modelType": "lightweight_heuristic",
+    "confidence_threshold": 0.75
+  },
+  "features": {
+    "keywords": [
+      {
+        "word": "adblock",
+        "weight": 0.85,
+        "category": "detection",
+        "language": "en"
+      },
+      {
+        "word": "ad blocker", 
+        "weight": 0.85,
+        "category": "detection",
+        "language": "en"
+      },
+      {
+        "word": "disable adblock",
+        "weight": 0.9,
+        "category": "instruction",
+        "language": "en"
+      },
+      {
+        "word": "whitelist",
+        "weight": 0.7,
+        "category": "instruction", 
+        "language": "en"
+      },
+      {
+        "word": "support us",
+        "weight": 0.4,
+        "category": "appeal",
+        "language": "en"
+      },
+      {
+        "word": "subscription",
+        "weight": 0.3,
+        "category": "monetization",
+        "language": "en"
+      },
+      {
+        "word": "premium",
+        "weight": 0.3,
+        "category": "monetization",
+        "language": "en"
+      }
+    ],
+    "patterns": [
+      {
+        "regex": "adblock|ad[-\\s]?block|ad blocker",
+        "weight": 0.8,
+        "type": "text_detection",
+        "description": "Basic adblock detection patterns"
+      },
+      {
+        "regex": "disable|turn off|remove.*ad.*block",
+        "weight": 0.75,
+        "type": "instruction_detection",
+        "description": "Instructions to disable adblock"
+      },
+      {
+        "regex": "whitelist|white[-\\s]?list.*site|domain",
+        "weight": 0.7,
+        "type": "instruction_detection",
+        "description": "Whitelist instructions"
+      },
+      {
+        "regex": "please.*support.*us|help.*us.*continue",
+        "weight": 0.5,
+        "type": "appeal_detection",
+        "description": "Support appeals"
+      }
+    ],
+    "scriptPatterns": [
+      {
+        "regex": "adblock|ad[-\\s]?block|ad blocker",
+        "weight": 0.7,
+        "type": "script_detection",
+        "severity": "high"
+      },
+      {
+        "regex": "document\\.getElementById\$$['\"].*ad.*['\"]\$$",
+        "weight": 0.85,
+        "type": "dom_detection",
+        "severity": "high"
+      },
+      {
+        "regex": "\\.offsetHeight\\s*===\\s*0",
+        "weight": 0.9,
+        "type": "dimension_check",
+        "severity": "critical"
+      },
+      {
+        "regex": "window\\.canRunAds\\s*===\\s*undefined",
+        "weight": 0.95,
+        "type": "variable_check",
+        "severity": "critical"
+      },
+      {
+        "regex": "adsbygoogle\\.push\$$\\{\\}\$$",
+        "weight": 0.8,
+        "type": "adsense_check",
+        "severity": "high"
+      },
+      {
+        "regex": "FuckAdBlock|BlockAdBlock|AdBlockDetector",
+        "weight": 0.9,
+        "type": "library_detection",
+        "severity": "critical"
+      }
+    ],
+    "domSelectors": [
+      {
+        "selector": ".adblock-wall",
+        "weight": 0.9,
+        "type": "blocking_element",
+        "action": "remove"
+      },
+      {
+        "selector": ".adblock-detector",
+        "weight": 0.85,
+        "type": "detection_element", 
+        "action": "remove"
+      },
+      {
+        "selector": "[class*='adblock']",
+        "weight": 0.7,
+        "type": "generic_detection",
+        "action": "analyze_then_remove"
+      },
+      {
+        "selector": ".paywall",
+        "weight": 0.8,
+        "type": "monetization_wall",
+        "action": "remove"
+      }
+    ]
+  },
+  "thresholds": {
+    "text_analysis": 0.7,
+    "element_analysis": 0.75,
+    "script_analysis": 0.8,
+    "page_analysis": 0.65,
+    "confidence_minimum": 0.6
+  },
+  "siteSpecificRules": {
+    "forbes.com": {
+      "selectors": [".adblock-wall", ".tp-modal", ".tp-backdrop"],
+      "scripts": ["fbs_settings", "forbes_ad"],
+      "customActions": ["disable_tinypass", "remove_overlay"],
+      "confidence_modifier": 0.1
+    },
+    "wired.com": {
+      "selectors": [".paywall-container", ".callout--warning"], 
+      "scripts": ["WIREDBlocker"],
+      "customActions": ["remove_paywall_class"],
+      "confidence_modifier": 0.1
+    },
+    "nytimes.com": {
+      "selectors": [".gateway-container", ".modal__overlay"],
+      "scripts": ["gatewayCreative"],
+      "customActions": ["restore_scroll", "remove_blur"],
+      "confidence_modifier": 0.15
+    }
+  },
+  "neuralNetworkWeights": {
+    "input_layer": {
+      "text_features": 0.3,
+      "dom_features": 0.25,
+      "script_features": 0.35,
+      "behavioral_features": 0.1
+    },
+    "hidden_layers": [
+      {
+        "layer_1": {
+          "nodes": 64,
+          "activation": "relu",
+          "weights": "compressed_base64_data_here"
+        }
+      },
+      {
+        "layer_2": {
+          "nodes": 32, 
+          "activation": "relu",
+          "weights": "compressed_base64_data_here"
+        }
+      }
+    ],
+    "output_layer": {
+      "nodes": 1,
+      "activation": "sigmoid",
+      "threshold": 0.75
+    }
+  },
+  "learningData": {
+    "commonPhrases": [
+      "Please disable your ad blocker",
+      "Turn off ad blocker to continue",
+      "Whitelist our site",
+      "Support us by disabling adblock",
+      "We noticed you're using an ad blocker"
+    ],
+    "falsePositives": [
+      "ad-hoc",
+      "advanced",
+      "advertisement-free content",
+      "ad-lib"
+    ],
+    "contextualClues": {
+      "overlay_indicators": ["z-index > 1000", "position: fixed", "full viewport coverage"],
+      "paywall_indicators": ["subscription required", "premium content", "member exclusive"],
+      "detection_indicators": ["ad blocker detected", "ads blocked", "please whitelist"]
+    }
+  },
+  "countermeasures": {
+    "script
