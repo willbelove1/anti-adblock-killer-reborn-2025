@@ -1,11 +1,11 @@
 [Adblock Plus 2.0]
-! Title: AakList Reborn AI Edition
+! Title: List for Reborn AI Edition
 ! Description: Advanced filter list with AI-powered pattern detection for Anti-Adblock Killer
 ! Author: Johnny Inc.
 ! Version: 2025.4
 ! Expires: 1 day
 ! Last Updated: July 14, 2025
-! Homepage: https://github.com/reek/anti-adblock-killer/
+! Homepage: https://lucaszone.vn/
 
 ! --- Section 1: Generic Element Hiding ---
 ! This section hides common ad-related elements that are not caught by the script.
